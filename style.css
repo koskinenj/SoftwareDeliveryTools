@@ -1,0 +1,27 @@
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100vw;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        background-color: blue;
+    }
+
+    
+    h1 {
+        font-size;
+        color: white;
+    }
+
+    h2 {
+        font-size;
+        color: white;
+    }
+}
