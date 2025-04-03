@@ -9,8 +9,6 @@ $pricingOptions = [
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'] ?? '';
     
-    if ($date == '2025-02-30') { 
-        echo "<p style='color: red;'>Date is not correct</p>";
     } else {
         echo "<p style='color: green;'>Reservation is made for this date: $date</p>";
     }
