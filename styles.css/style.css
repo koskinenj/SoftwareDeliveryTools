@@ -16,7 +16,7 @@ body {
 
     
     h1 {
-        font-size;
+        font-size: 30px;
         color: white;
     }
 
@@ -28,5 +28,10 @@ body {
     h3 {
         font-size;
         color: white;
+    }
+    
+    h4 {
+    font-size;
+    color: white;
     }
 }
