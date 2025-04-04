@@ -15,17 +15,17 @@ $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'] ?? '';
 
-    // Tarkista, onko päivä jo varattu
+    
     if (in_array($date, $reservedDates)) {
         $errorMessage = "Date $date is already reserved.";
     } else {
-        // Tallenna uusi varaus tiedostoon
+        /
         file_put_contents($reservationsFile, $date . PHP_EOL, FILE_APPEND);
         $reservedDates[] = $date;
         $successMessage = "Reservation is made for this date: $date";
 
-        // Lähetä sähköposti varauksesta
-        $to = "your@email.com"; // <-- Vaihda tähän oma sähköpostiosoitteesi
+        
+        $to = "your@email.com"; 
         $subject = "New Reservation";
         $message = "A new reservation has been made for the date: $date";
         $headers = "From: no-reply@yourdomain.com";
