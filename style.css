@@ -16,7 +16,22 @@ body {
 
     
     h1 {
+        font-size: 30px;
+        color: white;
+    }
+
+    h2 {
         font-size;
         color: white;
+    }
+
+    h3 {
+        font-size;
+        color: white;
+    }
+    
+    h4 {
+    font-size;
+    color: white;
     }
 }
