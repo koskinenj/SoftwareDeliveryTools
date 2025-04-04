@@ -1,13 +1,13 @@
 <?php
 
 $pricingOptions = [
-    ['service' => 'Basic Cleaning', 'price' => '50€'],
-    ['service' => 'Deep Cleaning', 'price' => '100€'],
-    ['service' => 'Premium Cleaning', 'price' => '150€']
+    ['service' => 'Basic Cleaning', 'price' => '50$'],
+    ['service' => 'Deep Cleaning', 'price' => '100$'],
+    ['service' => 'Premium Cleaning', 'price' => '150$']
 ];
 
 $reservationsFile = 'reservations.txt';
-$reservedDates = file_exists($reservationsFile) ? file($reservationsFile, FILE_IGNORE_NEW_LINES) : [];
+$reservedDates = file_exists($reservationsFile) ? file($reservationsFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 
 $successMessage = '';
 $errorMessage = '';
@@ -15,12 +15,26 @@ $errorMessage = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'] ?? '';
 
+    // Tarkista, onko päivä jo varattu
     if (in_array($date, $reservedDates)) {
         $errorMessage = "Date $date is already reserved.";
     } else {
+        // Tallenna uusi varaus tiedostoon
         file_put_contents($reservationsFile, $date . PHP_EOL, FILE_APPEND);
-        $successMessage = "Reservation is made for this date: $date";
         $reservedDates[] = $date;
+        $successMessage = "Reservation is made for this date: $date";
+
+        // Lähetä sähköposti varauksesta
+        $to = "your@email.com"; // <-- Vaihda tähän oma sähköpostiosoitteesi
+        $subject = "New Reservation";
+        $message = "A new reservation has been made for the date: $date";
+        $headers = "From: no-reply@yourdomain.com";
+
+        if (mail($to, $subject, $message, $headers)) {
+            $successMessage .= " (Email sent)";
+        } else {
+            $errorMessage = "Reservation saved, but email failed to send.";
+        }
     }
 }
 ?>
@@ -93,4 +107,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </body>
 </html>
-
