@@ -6,11 +6,21 @@ $pricingOptions = [
     ['service' => 'Premium Cleaning', 'price' => '150€']
 ];
 
+$reservationsFile = 'reservations.txt';
+$reservedDates = file_exists($reservationsFile) ? file($reservationsFile, FILE_IGNORE_NEW_LINES) : [];
+
+$successMessage = '';
+$errorMessage = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'] ?? '';
-    
+
+    if (in_array($date, $reservedDates)) {
+        $errorMessage = "Date $date is already reserved.";
     } else {
-        echo "<p style='color: green;'>Reservation is made for this date: $date</p>";
+        file_put_contents($reservationsFile, $date . PHP_EOL, FILE_APPEND);
+        $successMessage = "Reservation is made for this date: $date";
+        $reservedDates[] = $date;
     }
 }
 ?>
@@ -33,6 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         th {
             background-color: #f2f2f2;
         }
+        .reserved-dates {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -52,11 +65,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </table>
 
 <h2>Make a Reservation</h2>
+
+<?php if ($successMessage): ?>
+    <p style="color: green;"><?php echo $successMessage; ?></p>
+<?php elseif ($errorMessage): ?>
+    <p style="color: red;"><?php echo $errorMessage; ?></p>
+<?php endif; ?>
+
 <form method="post">
     <label for="date">Choose date:</label>
     <input type="date" id="date" name="date" required>
     <button type="submit">Confirm reservation</button>
 </form>
 
+<h2>Reserved Dates</h2>
+<div class="reserved-dates">
+    <?php if (count($reservedDates) > 0): ?>
+        <ul>
+            <?php foreach ($reservedDates as $reservedDate): ?>
+                <li><?php echo htmlspecialchars($reservedDate); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>No reservations yet.</p>
+    <?php endif; ?>
+</div>
+
 </body>
 </html>
+
