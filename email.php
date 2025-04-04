@@ -1,9 +1,9 @@
 <?php
 
 $pricingOptions = [
-    ['service' => 'Basic Cleaning', 'price' => '50€'],
-    ['service' => 'Deep Cleaning', 'price' => '100€'],
-    ['service' => 'Premium Cleaning', 'price' => '150€']
+    ['service' => 'Basic Cleaning', 'price' => '50$'],
+    ['service' => 'Deep Cleaning', 'price' => '100$'],
+    ['service' => 'Premium Cleaning', 'price' => '150$']
 ];
 
 $reservationsFile = 'reservations.txt';
