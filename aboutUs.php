@@ -15,7 +15,7 @@
             <a class="navbar-brand" href="#">Yrityksemme</a>
         </div>
     </nav>
-    
+    <!-- Test comment for commit -->
     <div class="container mt-5">
         <h1 class="text-center">Tietoa meistä</h1>
         <p class="text-center">Olemme omistautunut tiimi, joka pyrkii tarjoamaan parasta palvelua asiakkaillemme. Missiomme on luoda innovatiivisia ja kestäviä ratkaisuja.</p>
