@@ -1,9 +1,9 @@
 <?php
 
 $pricingOptions = [
-    ['service' => 'Basic Cleaning', 'price' => '50€'],
-    ['service' => 'Deep Cleaning', 'price' => '100€'],
-    ['service' => 'Premium Cleaning', 'price' => '150€']
+    ['service' => 'Basic Cleaning', 'price' => '100€'],
+    ['service' => 'Deep Cleaning', 'price' => '150€'],
+    ['service' => 'Premium Cleaning', 'price' => '200€']
 ];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "<p style='color: green;'>Reservation is made for this date: $date</p>";
     }
-}
+
 ?>
 
 <!DOCTYPE html>
