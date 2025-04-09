@@ -10,28 +10,34 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-    .container {
-        background-color: blue;
-    }
-
     
-    h1 {
-        font-size: 30px;
-        color: white;
+.container {
+        background-color: #1e1e2f;
+        padding: 20px;
+        text-align: center;
     }
 
-    h2 {
-        font-size;
-        color: white;
+h1 {
+        font-size: 26px;
+        color: #f0f0f0;
+        margin: 20px 0 15px 0;
     }
 
-    h3 {
-        font-size;
-        color: white;
+h2 {
+        font-size: 22px;
+        color: #e0e0e0;
+        margin: 15px 0;
     }
-    
-    h4 {
-    font-size;
-    color: white;
+
+h3 {
+        font-size: 18px;
+        color: #d0d0d0;
+        margin: 12px 0;
+    }
+
+h4 {
+        font-size: 16px;
+        color: #c0c0c0;
+        margin: 10px 0;
     }
 }
