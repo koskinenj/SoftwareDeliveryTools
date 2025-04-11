@@ -2,13 +2,10 @@ name: Label & comment issues #the name of the workflow
 
 on: # This action will trigger when an issue is reopened or opened.
   issues:
-    types:
-      - reopened
-      - opened
-      - closed
-  pull_request_target:
-    types:
-      - opened
+    types: [opened, reopened, closed]
+  pull_request:
+    types: [opened]
+
       
 jobs: # The jobs that run in this workflow
 
