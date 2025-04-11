@@ -1,15 +1,19 @@
 name: Label & comment issues #the name of the workflow
+
 on: # This action will trigger when an issue is reopened or opened.
   issues:
     types:
       - reopened
       - opened
       - closed
-    pull_request_target:
-      types: [opened]
+  pull_request_target:
+    types:
+      - opened
       
 jobs: # The jobs that run in this workflow
+
   label_issues: # the first job is named as label_issues
+    if: github.event.action == 'reopened' || github.event.action == 'opened'
     runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
     permissions: # This job requires write access to issues in order to add labels and comment.
       issues: write
@@ -24,6 +28,7 @@ jobs: # The jobs that run in this workflow
               repo: context.repo.repo,
               labels: ["issue", "fix"]
             })
+            
       - name: Comment on new issue #this is another step that comments on the issue 
         uses: peter-evans/create-or-update-comment@v1 # This step uses the "peter-evans/create-or-update-comment" action to create or update a comment on the issue.
         with:
@@ -31,6 +36,42 @@ jobs: # The jobs that run in this workflow
           body: | # The body of the comment is a message thanking the user for opening the issue.
            Thanks for opening this issue! We'll take a look as soon as possible.
 
+           
+
 # Comment on when an issue is closed
 
-# Comment on when an users opens the first pull request 
+  comment_on_issue_close: 
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Comment that issue is resolved
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "The issue is now resolved."
+            })
+          
+  # Comment on when an users opens the first pull request
+  comment_on_first_pr: 
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment on first pull request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: "Congratulations on opening your first pull request!"
+            })
+
